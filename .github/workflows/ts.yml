@@ -1,0 +1,22 @@
+name: TS
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: install
+      run: sudo apt update && sudo apt install nodejs curl wget git -y && npm init -y && npm install --save-dev typescript @types/node ts-node && npx tsc --init && npm install @solana/web3.js
+    - name: run
+      run: npx ts-node index.ts
